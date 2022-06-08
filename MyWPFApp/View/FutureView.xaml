@@ -1,0 +1,579 @@
+﻿<UserControl x:Class="MyWPFApp.View.FutureView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyWPFApp.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyleMouseOver"
+               TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#13131C"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5,5,5,5" />
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True" >
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                  Grid.Row="0"
+                  x:Name="DisplayCrypto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                            >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="1" 
+                        Content="Name"
+                        FontSize="22"
+                        Foreground="White"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"/>
+                    <Label 
+                        Grid.Column="2" 
+                           Content="Price"
+                           FontSize="22"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <Label 
+                        Grid.Column="3" 
+                           Content="MaketCap"
+                           FontSize="22"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="White"/>
+                    <Label 
+                        Grid.Column="4" 
+                           Content="24H"
+                           FontSize="22"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="White"/>
+                </Grid>
+                <Button 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource ButtonStyleMouseOver}"
+                    Content="Refresh All"
+                    Margin="2"
+                    Click="RefreshAll"/>
+                <Grid Grid.Row="1" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="BitcoinPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="Bitcoin"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Click="BitcoinRefresh"
+                        Grid.Row="1"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="2" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="EthereumPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="Ethereum"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Click="EthereumRefresh"
+                        Grid.Row="2"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="3" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="BnbPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="BNB"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Margin="2"
+                        Click="BNBRefresh"
+                        Grid.Row="3"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="4" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="SolanaPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="Solana"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Margin="2"
+                        Click="SolanaRefresh"
+                        Grid.Row="4"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="5" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="XrpPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="XRP"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Margin="2"
+                        Click="XRPRefresh"
+                        Grid.Row="5"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="6" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="AvaxPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="Avax"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Center">
+                        <TextBlock 
+                            Text="{Binding Change,StringFormat='N2'}"
+                            FontSize="15"
+                            Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Margin="2"
+                        Click="AVAXRefresh"
+                        Grid.Row="6"
+                        Grid.Column="1"/>
+                <Grid Grid.Row="7" Grid.Column="0"
+                      Margin="5,0"
+                      HorizontalAlignment="Stretch"
+                      x:Name="FantomPanel">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="{Binding Image}"
+                           Stretch="Uniform"
+                           Margin="2"/>
+                    <Label Grid.Column="1"
+                           Content="Fantom"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2"
+                               Text="{Binding Price, StringFormat='C'}"
+                               FontSize="15"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock  Grid.Column="3"
+                                Text="{Binding MarketCap, StringFormat='C'}"
+                                FontSize="15"
+                                Foreground="White"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                    <DockPanel Grid.Column="4"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center">
+                        <TextBlock 
+                                   Text="{Binding Change,StringFormat='N2'}"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                        <TextBlock Text="%"
+                                   FontSize="15"
+                                   Foreground="White"/>
+                    </DockPanel>
+                </Grid>
+                <Button Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Refresh"
+                        Margin="2"
+                        Click="FantomRefresh"
+                        Grid.Row="7"
+                        Grid.Column="1"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <ComboBox Grid.Row="0"
+                          x:Name="SelectCrypto"
+                          ItemsSource="{Binding Path=MyCryptocurrencies}" SelectionChanged="OnSelectionChanged"
+                          DisplayMemberPath="Crypto">
+
+                </ComboBox>
+                <DockPanel Grid.Row="1"
+                            >
+                    <TextBlock Text="Selected price"
+                               Foreground="White"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                    <TextBlock 
+                        FontSize="15"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        x:Name="SelectedPrice"
+                        VerticalAlignment="Center"
+                        Text="{Binding Price}"/>
+                    <TextBlock 
+                        FontSize="15"
+                        Foreground="White"
+                        Text="$"
+                        VerticalAlignment="Center"/>
+
+                </DockPanel>
+                <StackPanel Grid.Row="2">
+                    <Label Content="Usd available"
+                           Foreground="White"
+                           FontSize="10"/>
+                    <Slider Name="SliderAmount" Minimum="0" Maximum="{Binding MyWallet.Amount}"/>
+                    <TextBlock Text="{Binding ElementName=SliderAmount,Path=Value,StringFormat='C'}"
+                               Foreground="White"
+                               FontSize="12"
+                               />
+                </StackPanel>
+                <StackPanel Grid.Row="3">
+                    <Label Content="Leverage"
+                           Foreground="White"
+                           FontSize="10"/>
+                    <Slider Name="LeverageAmount" Minimum="1" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True"
+                    />
+                    <TextBlock Text="{Binding ElementName=LeverageAmount,Path=Value}"
+                               Foreground="White"
+                               FontSize="12"
+                    />
+                </StackPanel>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                        Margin="10"
+                        Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Long"
+                        Background="Green"
+                        Click="LongFuture"/>
+                    <Button Grid.Column="1"
+                        Margin="10"
+                        Style="{StaticResource ButtonStyleMouseOver}"
+                        Content="Short"
+                        Background="Red"
+                        Click="ShortFuture"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="1"
+                    x:Name="TradeFutureOrder">
+            <ListView x:Name="ViewTradeFuture"
+                      ItemsSource="{Binding MyWallet.TradeFuture}"
+                      Background="Transparent"
+                      Foreground="White" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Action    }"/>
+                            <TextBlock Text="  " />
+                            <TextBlock Text="{Binding Type}"/>
+                            <TextBlock Text="         Entry Price: " />
+                            <TextBlock Text="{Binding EntryPrice,StringFormat='C'}"/>
+                            <TextBlock Text="       Amount  "/>
+                            <TextBlock Text="{Binding Amount,StringFormat='C'}"/>
+                            <TextBlock Text="       Leverage  "/>
+                            <TextBlock Text="{Binding Leverage}"/>
+                            <TextBlock Text="       TotalAmount  "/>
+                            <TextBlock Text="{Binding TotalAmount,StringFormat='C'}"/>
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding ActionDate}"/>
+                            <TextBlock Text="  Liq.Price "/>
+                            <TextBlock Text="{Binding LiquidationPrice,StringFormat='C'}"/>
+                            <TextBlock Text="  Pnl "/>
+                            <TextBlock Text="{Binding Pnl,StringFormat='C'}"/>
+                            <Button Style="{StaticResource ButtonStyleMouseOver}"
+                                    Background="Red"
+                                    Content="Sell"
+                                    Click="SellFuture"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

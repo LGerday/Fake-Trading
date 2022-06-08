@@ -1,0 +1,26 @@
+﻿<Application x:Class="MyWPFApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MyWPFApp"
+             xmlns:viewModel="clr-namespace:MyWPFApp.ViewModel"
+             xmlns:model="clr-namespace:MyWPFApp.Model"
+             xmlns:view="clr-namespace:MyWPFApp.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate x:Key="Template1" DataType="{x:Type viewModel:MainWindowViewModel}">
+            <view:SettingsView/>
+        </DataTemplate>
+        <DataTemplate x:Key="Template2" DataType="{x:Type viewModel:MainWindowViewModel}">
+            <view:DefiView/>
+        </DataTemplate>
+        <DataTemplate x:Key="Template3" DataType="{x:Type viewModel:MainWindowViewModel}">
+            <view:WalletView/>
+        </DataTemplate>
+        <DataTemplate x:Key="Template4" DataType="{x:Type viewModel:MainWindowViewModel}">
+            <view:SpotView/>
+        </DataTemplate>
+        <DataTemplate x:Key="Template5" DataType="{x:Type viewModel:MainWindowViewModel}">
+            <view:FutureView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
